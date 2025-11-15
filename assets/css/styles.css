@@ -16,7 +16,7 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background: radial-gradient(circle at top left, #253041 0%, #1a2230 40%, #10141c 100%);
   color: var(--roenie-text-main);
 }
