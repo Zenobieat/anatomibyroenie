@@ -231,7 +231,15 @@ body::before {
   gap: 1.5rem;
   margin-bottom: 2.5rem;
 }
-
+.quiz-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  margin: 0.5rem 0 0.75rem;
+  object-fit: cover;
+  box-shadow: 0 0 0 6px rgba(227, 52, 58, 0.18);
+}
 .catalog-header__actions {
   display: flex;
   align-items: flex-start;
