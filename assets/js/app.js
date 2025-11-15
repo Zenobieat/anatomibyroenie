@@ -2797,6 +2797,23 @@ if (goToLanding) {
   });
 }
 
+function setupMenuAutoClose() {
+  const sections = document.querySelectorAll(".menu-section");
+
+  sections.forEach((section) => {
+    section.addEventListener("toggle", () => {
+      if (section.open) {
+        sections.forEach((other) => {
+          if (other !== section) {
+            other.open = false;
+          }
+        });
+      }
+    });
+  });
+}
+
 showScreen("start");
 
 renderMenu();
+setupMenuAutoClose();
