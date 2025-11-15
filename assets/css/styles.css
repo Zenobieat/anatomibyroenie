@@ -17,7 +17,7 @@
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-  background: radial-gradient(circle at top left, #1f2933 0, #111827 40%, #050608 100%);
+  background: radial-gradient(circle at top left, #253041 0%, #1a2230 40%, #10141c 100%);
   color: var(--roenie-text-main);
 }
 
@@ -100,7 +100,13 @@ body::before {
   margin-bottom: 0.75rem;
   font-weight: 600;
 }
+.catalog-header h2 {
+  color: #f3f4f6;
+}
 
+.catalog-header p {
+  color: #cbd5e1;
+}
 .hero__content p {
   margin: 1.25rem 0 1.75rem;
   color: var(--muted);
@@ -232,19 +238,21 @@ body::before {
   margin-bottom: 2.5rem;
 }
 .quiz-logo {
-  width: 64px;
-  height: 64px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   border: 2px solid var(--accent);
   margin: 0.5rem 0 0.75rem;
   object-fit: cover;
-  box-shadow: 0 0 0 6px rgba(227, 52, 58, 0.18);
+  box-shadow: 0 0 0 4px rgba(227, 52, 58, 0.15);
 }
 .catalog-header__actions {
   display: flex;
   align-items: flex-start;
 }
-
+.catalog-header {
+  color: #e5e7eb;
+}
 .catalog-grid {
   display: grid;
   grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
