@@ -2524,22 +2524,27 @@ const resultScore = document.getElementById("resultScore");
 const resultDetails = document.getElementById("resultDetails");
 const screens = document.querySelectorAll("[data-screen]");
 const catalogScreen = document.getElementById("catalogScreen");
+const catalogGrid = document.querySelector(".catalog-grid");
 
 const menuSections = [
   {
     title: "Wervels & Thorax",
+    description: "Cervicale wervels tot ribben en sternum",
     items: ["atlas", "axis", "cervicaal", "thoracaal", "lumbaal", "sacrum", "coccygis", "costae", "sternum"]
   },
   {
     title: "Schoudergordel & Arm",
+    description: "Clavicula tot handwortel",
     items: ["clavicula", "scapula", "humerus", "radius", "ulna", "carpi", "hand"]
   },
   {
     title: "Heup & Been",
+    description: "Heupbeen en lange pijpbeenderen",
     items: ["os-coxae", "femur", "patella", "tibia", "fibula"]
   },
   {
     title: "Voet",
+    description: "Tarsalia tot teenkootjes",
     items: ["talus", "calcaneus", "naviculare", "cuboideum", "cuneiformia", "metatarsalia"]
   }
 ];
@@ -2553,6 +2558,12 @@ const state = {
 
 const letters = ["A", "B", "C", "D"];
 const questionAnimationClass = "question-zone--animate";
+
+function updateCatalogLayout(view) {
+  if (!catalogGrid) return;
+  const shouldExpandStage = view !== "menu";
+  catalogGrid.classList.toggle("catalog-grid--stage-only", shouldExpandStage);
+}
 
 function shortQuizLabel(quiz) {
   const parts = quiz.title.split("—");
@@ -2604,6 +2615,7 @@ function renderMenu() {
 
   quizGrid.innerHTML = sectionsWithContent
     .map((section, index) => {
+    .map((section) => {
       const itemsMarkup = section.quizzes
         .map(
           (quiz) => `
@@ -2618,8 +2630,13 @@ function renderMenu() {
 
       return `
         <details class="menu-section" ${index === 0 ? "open" : ""}>
+        <details class="menu-section">
           <summary>
             <span>${section.title}</span>
+            <div class="menu-section__title">
+              <h4>${section.title}</h4>
+              <p>${section.description || ""}</p>
+            </div>
             <span class="menu-section__count">${section.quizzes.length}</span>
           </summary>
           <ul class="menu-section__list">
@@ -2632,6 +2649,25 @@ function renderMenu() {
 
   quizGrid.querySelectorAll(".quiz-option").forEach((button) => {
     button.addEventListener("click", () => startQuiz(button.dataset.id));
+  });
+
+  activateAccordion();
+}
+
+// Zorgt ervoor dat slechts één categoriekaart tegelijk openklapt (accordiongedrag)
+function activateAccordion() {
+  const sections = quizGrid.querySelectorAll(".menu-section");
+  if (!sections.length) return;
+
+  sections.forEach((section) => {
+    section.addEventListener("toggle", () => {
+      if (!section.open) return;
+      sections.forEach((otherSection) => {
+        if (otherSection !== section) {
+          otherSection.removeAttribute("open");
+        }
+      });
+    });
   });
 }
 
@@ -2652,6 +2688,7 @@ function togglePanels(view) {
   quizMenu.classList.toggle("panel--hidden", view !== "menu");
   quizPlayground.classList.toggle("panel--hidden", view !== "quiz");
   resultPanel.classList.toggle("panel--hidden", view !== "result");
+  updateCatalogLayout(view); // schakelt tussen menu + stage of alleen stage voor volledige breedte
 }
 
 function renderQuestion() {
@@ -2677,102 +2714,7 @@ function renderQuestion() {
 
   questionZone.innerHTML = `
     <h4>${question.prompt}</h4>
-    <div class="options">${optionsMarkup}</div>
-  `;
-  animateQuestionZone();
-
-  questionZone.querySelectorAll(".option").forEach((optionBtn) => {
-    optionBtn.addEventListener("click", () => selectOption(optionBtn));
-  });
-
-  nextQuestionBtn.textContent =
-    state.currentIndex === quiz.questions.length - 1 ? "Toon resultaat" : "Volgende vraag";
-}
-
-function selectOption(button) {
-  questionZone.querySelectorAll(".option").forEach((btn) => btn.classList.remove("selected"));
-  button.classList.add("selected");
-  state.selectedOption = Number(button.dataset.index);
-  nextQuestionBtn.disabled = false;
-}
-
-nextQuestionBtn.addEventListener("click", () => {
-  if (state.selectedOption === null) return;
-  const quiz = state.currentQuiz;
-  state.answers.push({
-    questionIndex: state.currentIndex,
-    selected: state.selectedOption,
-    correct: quiz.questions[state.currentIndex].answer
-  });
-
-  if (state.currentIndex < quiz.questions.length - 1) {
-    state.currentIndex += 1;
-    renderQuestion();
-  } else {
-    showResults();
-  }
-});
-
-function animateQuestionZone() {
-  if (!questionZone) return;
-  questionZone.classList.remove(questionAnimationClass);
-  void questionZone.offsetWidth;
-  questionZone.classList.add(questionAnimationClass);
-}
-
-function showResults() {
-  const quiz = state.currentQuiz;
-  const correctAnswers = state.answers.filter((answer) => answer.selected === answer.correct).length;
-  const scoreOn20 = (correctAnswers / quiz.questions.length) * 20;
-  resultTitle.textContent = quiz.title;
-  resultScore.innerHTML = `<span class="result-score">${scoreOn20.toFixed(1)} / 20</span><br>${correctAnswers} van ${quiz.questions.length} juist`;
-
-  const detailsMarkup = state.answers
-    .map((answer, idx) => {
-      const question = quiz.questions[answer.questionIndex];
-      const isCorrect = answer.selected === answer.correct;
-      return `
-        <div class="result-detail ${isCorrect ? "correct" : "incorrect"}">
-          <p><strong>${idx + 1}.</strong> ${question.prompt}</p>
-          <p>Jouw antwoord: ${letters[answer.selected]} – ${question.options[answer.selected]}</p>
-          ${
-            isCorrect
-              ? "<p>✅ Helemaal goed!</p>"
-              : `<p>Correct: ${letters[answer.correct]} – ${question.options[answer.correct]}</p>`
-          }
-        </div>
-      `;
-    })
-    .join("");
-
-  resultDetails.innerHTML = detailsMarkup;
-  progressBar.style.width = "100%";
-  togglePanels("result");
-}
-
-const backToMenu = document.getElementById("backToMenu");
-const retryQuiz = document.getElementById("retryQuiz");
-const returnHome = document.getElementById("returnHome");
-const scrollToQuizzes = document.getElementById("scrollToQuizzes");
-const goToLanding = document.getElementById("goToLanding");
-
-function showScreen(target) {
-  if (!screens.length) return;
-  screens.forEach((screen) => {
-    screen.classList.toggle("is-visible", screen.dataset.screen === target);
-  });
-}
-
-function openCatalogView() {
-  showScreen("catalog");
-  togglePanels("menu");
-  if (catalogScreen) {
-    catalogScreen.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-}
-
-backToMenu.addEventListener("click", () => {
-  state.currentQuiz = null;
+@@ -2776,44 +2810,44 @@ backToMenu.addEventListener("click", () => {
   togglePanels("menu");
 });
 
@@ -2808,6 +2750,16 @@ function setupMenuAutoClose() {
             other.open = false;
           }
         });
+  if (!quizGrid) return;
+  // Event delegation: één listener op het grid houdt het accordion-gedrag in stand.
+  quizGrid.addEventListener("toggle", (event) => {
+    const toggledSection = event.target;
+    if (!toggledSection.classList.contains("menu-section") || !toggledSection.open) {
+      return;
+    }
+    quizGrid.querySelectorAll(".menu-section").forEach((section) => {
+      if (section !== toggledSection) {
+        section.open = false;
       }
     });
   });
