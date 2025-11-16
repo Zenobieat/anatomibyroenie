@@ -2834,6 +2834,7 @@ if (goToLanding) {
   });
 }
 
+<<<<<<< HEAD
 function setupMenuAutoClose() {
   if (!quizGrid) return;
   // Event delegation: één listener op het grid houdt het accordion-gedrag in stand.
@@ -2850,7 +2851,8 @@ function setupMenuAutoClose() {
   });
 }
 
+=======
+>>>>>>> parent of a1e5c24 (Add auto-close functionality for menu sections)
 showScreen("start");
 
 renderMenu();
-setupMenuAutoClose();
