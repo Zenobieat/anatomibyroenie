@@ -2524,22 +2524,27 @@ const resultScore = document.getElementById("resultScore");
 const resultDetails = document.getElementById("resultDetails");
 const screens = document.querySelectorAll("[data-screen]");
 const catalogScreen = document.getElementById("catalogScreen");
+const catalogGrid = document.querySelector(".catalog-grid");
 
 const menuSections = [
   {
     title: "Wervels & Thorax",
+    description: "Cervicale wervels tot ribben en sternum",
     items: ["atlas", "axis", "cervicaal", "thoracaal", "lumbaal", "sacrum", "coccygis", "costae", "sternum"]
   },
   {
     title: "Schoudergordel & Arm",
+    description: "Clavicula tot handwortel",
     items: ["clavicula", "scapula", "humerus", "radius", "ulna", "carpi", "hand"]
   },
   {
     title: "Heup & Been",
+    description: "Heupbeen en lange pijpbeenderen",
     items: ["os-coxae", "femur", "patella", "tibia", "fibula"]
   },
   {
     title: "Voet",
+    description: "Tarsalia tot teenkootjes",
     items: ["talus", "calcaneus", "naviculare", "cuboideum", "cuneiformia", "metatarsalia"]
   }
 ];
@@ -2553,6 +2558,12 @@ const state = {
 
 const letters = ["A", "B", "C", "D"];
 const questionAnimationClass = "question-zone--animate";
+
+function updateCatalogLayout(view) {
+  if (!catalogGrid) return;
+  const shouldExpandStage = view !== "menu";
+  catalogGrid.classList.toggle("catalog-grid--stage-only", shouldExpandStage);
+}
 
 function shortQuizLabel(quiz) {
   const parts = quiz.title.split("—");
@@ -2603,7 +2614,7 @@ function renderMenu() {
   }
 
   quizGrid.innerHTML = sectionsWithContent
-    .map((section, index) => {
+    .map((section) => {
       const itemsMarkup = section.quizzes
         .map(
           (quiz) => `
@@ -2617,9 +2628,12 @@ function renderMenu() {
         .join("");
 
       return `
-        <details class="menu-section" ${index === 0 ? "open" : ""}>
+        <details class="menu-section">
           <summary>
-            <span>${section.title}</span>
+            <div class="menu-section__title">
+              <h4>${section.title}</h4>
+              <p>${section.description || ""}</p>
+            </div>
             <span class="menu-section__count">${section.quizzes.length}</span>
           </summary>
           <ul class="menu-section__list">
@@ -2632,6 +2646,25 @@ function renderMenu() {
 
   quizGrid.querySelectorAll(".quiz-option").forEach((button) => {
     button.addEventListener("click", () => startQuiz(button.dataset.id));
+  });
+
+  activateAccordion();
+}
+
+// Zorgt ervoor dat slechts één categoriekaart tegelijk openklapt (accordiongedrag)
+function activateAccordion() {
+  const sections = quizGrid.querySelectorAll(".menu-section");
+  if (!sections.length) return;
+
+  sections.forEach((section) => {
+    section.addEventListener("toggle", () => {
+      if (!section.open) return;
+      sections.forEach((otherSection) => {
+        if (otherSection !== section) {
+          otherSection.removeAttribute("open");
+        }
+      });
+    });
   });
 }
 
@@ -2652,6 +2685,7 @@ function togglePanels(view) {
   quizMenu.classList.toggle("panel--hidden", view !== "menu");
   quizPlayground.classList.toggle("panel--hidden", view !== "quiz");
   resultPanel.classList.toggle("panel--hidden", view !== "result");
+  updateCatalogLayout(view); // schakelt tussen menu + stage of alleen stage voor volledige breedte
 }
 
 function renderQuestion() {
@@ -2798,16 +2832,16 @@ if (goToLanding) {
 }
 
 function setupMenuAutoClose() {
-  const sections = document.querySelectorAll(".menu-section");
-
-  sections.forEach((section) => {
-    section.addEventListener("toggle", () => {
-      if (section.open) {
-        sections.forEach((other) => {
-          if (other !== section) {
-            other.open = false;
-          }
-        });
+  if (!quizGrid) return;
+  // Event delegation: één listener op het grid houdt het accordion-gedrag in stand.
+  quizGrid.addEventListener("toggle", (event) => {
+    const toggledSection = event.target;
+    if (!toggledSection.classList.contains("menu-section") || !toggledSection.open) {
+      return;
+    }
+    quizGrid.querySelectorAll(".menu-section").forEach((section) => {
+      if (section !== toggledSection) {
+        section.open = false;
       }
     });
   });
