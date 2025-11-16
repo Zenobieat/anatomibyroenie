@@ -7,28 +7,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-  href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
-  rel="stylesheet"
-/>
-    <link rel="icon" type="image/png" href="anatomy-logo.png">
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="anatomy-logo.png" />
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
     <div class="screen screen--start is-visible" data-screen="start" id="startScreen">
       <header class="hero">
         <div class="hero__content">
-         <p class="hero__eyebrow">Anatomiequiz voor studenten</p>
-
-<h1>Anatomie by Roenie</h1>
-
-<p>
-  Kies een module en test rustig je kennis van het menselijk lichaam.
-  Korte, duidelijke quizzen om je leerstof te herhalen.
-</p>
-
-<button class="hero__cta" id="scrollToQuizzes">
-  Start een quiz
-</button>
+          <p class="hero__eyebrow">Anatomiequiz voor studenten</p>
+          <h1>Anatomie by Roenie</h1>
+          <p>
+            Kies een module en test rustig je kennis van het menselijk lichaam.
+            Korte, duidelijke quizzen om je leerstof te herhalen.
+          </p>
+          <button class="hero__cta" id="scrollToQuizzes">Start een quiz</button>
         </div>
         <div class="hero__animation" aria-hidden="true">
           <div class="spine">
@@ -64,43 +59,41 @@
 
     <div class="screen screen--catalog" data-screen="catalog" id="catalogScreen">
       <main class="workspace">
-       <header class="catalog-header">
-  <div>
-    <p class="hero__eyebrow">Quizcatalogus</p>
-
-    <img
-      src="anatomy-logo.png"
-      alt="Anatomie by Roenie"
-      class="quiz-logo"
-    />
-
-    <h2>Ontdek bot per bot</h2>
-    <p>
-      Selecteer eerst een bot in het overzicht links. Rechts zie je je
-      actieve quiz, de voortgang en uiteindelijk de resultaten.
-    </p>
-  </div>
-  <div class="catalog-header__actions">
-    <button class="btn ghost" id="goToLanding">← Terug naar start</button>
-  </div>
-</header>
-
-        <section class="catalog-grid">
+        <header class="catalog-header">
           <div>
+            <p class="hero__eyebrow">Quizcatalogus</p>
+            <img
+              src="anatomy-logo.png"
+              alt="Anatomie by Roenie"
+              class="quiz-logo"
+            />
+            <h2>Ontdek bot per bot</h2>
+            <p>
+              Selecteer eerst een bot in het overzicht links. Rechts zie je je actieve
+              quiz, de voortgang en uiteindelijk de resultaten.
+            </p>
+          </div>
+          <div class="catalog-header__actions">
+            <button class="btn ghost" id="goToLanding">← Terug naar start</button>
+          </div>
+        </header>
+
+        <!-- Nieuwe layout: menu en quizstadium staan nu naast elkaar over de volle breedte -->
+        <section class="catalog-grid">
+          <aside class="catalog-grid__menu">
             <section id="quizMenu" class="panel panel--menu">
               <div class="panel__header">
                 <h3>Hoofdmenu – kies je bot</h3>
                 <p>
-                  Klap een categorie open en kies het bot waarvan je de quiz
-                  wil spelen.
+                  Klap een categorie open en kies het bot waarvan je de quiz wil spelen.
                 </p>
               </div>
               <div class="quiz-grid" id="quizGrid"></div>
             </section>
-          </div>
+          </aside>
 
-          <div class="workspace__play">
-            <section id="quizPlayground" class="panel panel--hidden">
+          <div class="catalog-grid__stage">
+            <section id="quizPlayground" class="panel panel--stage panel--hidden">
               <div class="quiz-head">
                 <button class="btn ghost" id="backToMenu">← Terug naar hoofdmenu</button>
                 <div class="quiz-head__info">
@@ -120,7 +113,7 @@
               </div>
             </section>
 
-            <section id="resultPanel" class="panel panel--hidden">
+            <section id="resultPanel" class="panel panel--stage panel--hidden">
               <div class="result-card">
                 <p class="result-card__eyebrow">Quiz voltooid</p>
                 <h3 id="resultTitle"></h3>
@@ -138,7 +131,7 @@
     </div>
 
     <footer>
-      <p>Gemaakt met ❤️ voor anatomie – powered by GPT-5 Codex</p>
+      <p>Gemaakt met ❤️ voor anatomie – powered door GPT-5 Codex</p>
     </footer>
 
     <script src="assets/js/app.js" defer></script>
