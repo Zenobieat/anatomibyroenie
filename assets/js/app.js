@@ -2787,8 +2787,8 @@ function showResults() {
 const backToMenu = document.getElementById("backToMenu");
 const retryQuiz = document.getElementById("retryQuiz");
 const returnHome = document.getElementById("returnHome");
-const scrollToQuizzes = document.getElementById("scrollToQuizzes");
 const goToLanding = document.getElementById("goToLanding");
+const catalogTriggers = document.querySelectorAll("[data-open-catalog]");
 
 function showScreen(target) {
   if (!screens.length) return;
@@ -2821,8 +2821,11 @@ returnHome.addEventListener("click", () => {
   showScreen("catalog");
 });
 
-if (scrollToQuizzes) {
-  scrollToQuizzes.addEventListener("click", openCatalogView);
+// Nieuwe CTA's (nav + hero) gebruiken hetzelfde data-attribuut om de catalogus te openen.
+if (catalogTriggers.length) {
+  catalogTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", openCatalogView);
+  });
 }
 
 if (goToLanding) {
