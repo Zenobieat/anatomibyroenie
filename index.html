@@ -15,66 +15,108 @@
   </head>
   <body>
     <div class="screen screen--start is-visible" data-screen="start" id="startScreen">
-      <!-- Nieuwe navigatie zodat de site meteen modern oogt -->
-      <nav class="site-nav">
-        <div class="site-nav__brand">
+      <!-- Startpagina heropgebouwd zodat hij lijkt op de referentie en opnieuw responsief is -->
+      <header class="site-header">
+        <div class="site-header__brand">
           <img src="anatomy-logo.png" alt="Logo Anatomie by Roenie" />
           <div>
-            <p class="hero__eyebrow">Anatomiequiz</p>
+            <p class="hero__eyebrow">Anatomiequiz voor studenten</p>
             <strong>Anatomie by Roenie</strong>
           </div>
         </div>
-        <div class="site-nav__actions">
+        <div class="site-header__actions">
           <button class="btn ghost" type="button" data-open-catalog>Ontdek catalogus</button>
-        </div>
-      </nav>
-
-      <!-- Hero en CTA nemen nu de volledige breedte in -->
-      <header class="hero">
-        <div class="hero__content">
-          <p class="hero__eyebrow">Train je anatomie</p>
-          <h1>Anatomie by Roenie</h1>
-          <p>
-            Kies een module en test rustig je kennis van het menselijk lichaam. Korte,
-            duidelijke quizzen met onmiddellijke feedback zodat je sneller scoort op examens.
-          </p>
-          <div class="hero__cta-row">
-            <button class="btn primary" type="button" data-open-catalog>Start een quiz</button>
-            <button class="btn secondary" type="button">Blijf op de hoogte</button>
-          </div>
-        </div>
-        <div class="hero__animation" aria-hidden="true">
-          <div class="spine">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <div class="pulse"></div>
         </div>
       </header>
 
-      <!-- Compacte USP-kaarten voor snelle uitleg -->
-      <section class="usp-grid">
-        <article class="usp-card">
-          <h3>Gestructureerd leren</h3>
-          <p>Elke quiz zit in zijn eigen kaart zodat je bot per bot kunt oefenen.</p>
-        </article>
-        <article class="usp-card">
-          <h3>Score op 20</h3>
-          <p>Na 20 vragen zie je meteen je resultaat, inclusief feedback per vraag.</p>
-        </article>
-        <article class="usp-card">
-          <h3>Apple-achtige finesse</h3>
-          <p>Modern font, zachte animaties en een cleane interface voor focus.</p>
-        </article>
-      </section>
+      <main class="start-shell">
+        <section class="masthead">
+          <div class="masthead__content">
+            <p class="hero__eyebrow">Anatomiequiz voor studenten</p>
+            <h1>Leer bot per bot met vertrouwen</h1>
+            <p>
+              Kies een module en test rustig je kennis van het menselijk lichaam. Heldere
+              vragen, directe feedback en een score op 20 zodat je exact weet waar je staat.
+            </p>
+            <div class="masthead__cta-row">
+              <button class="btn primary" type="button" data-open-catalog>Start een quiz</button>
+              <button class="btn secondary" type="button">Blijf op de hoogte</button>
+            </div>
+            <ul class="masthead__highlights">
+              <li>
+                <strong>Score op 20</strong>
+                <span>Na elke quiz zie je meteen je resultaat.</span>
+              </li>
+              <li>
+                <strong>Feedback per vraag</strong>
+                <span>Ontdek direct welke antwoorden correct waren.</span>
+              </li>
+              <li>
+                <strong>Mobiel & desktop</strong>
+                <span>De layout past zich vloeiend aan elk scherm aan.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="masthead__media" aria-hidden="true">
+            <div class="masthead__badge">
+              <p>Score op 20</p>
+              <strong>Directe feedback</strong>
+            </div>
+            <div class="masthead__illustration">
+              <img src="anatomy-logo.png" alt="" />
+            </div>
+          </div>
+        </section>
+
+        <!-- Compacte USP-kaarten voor snelle uitleg -->
+        <section class="usp-grid">
+          <article class="usp-card">
+            <h3>Gestructureerd leren</h3>
+            <p>Elke quiz zit in zijn eigen kaart zodat je bot per bot kunt oefenen.</p>
+          </article>
+          <article class="usp-card">
+            <h3>Score op 20</h3>
+            <p>Na 20 vragen zie je meteen je resultaat, inclusief feedback per vraag.</p>
+          </article>
+          <article class="usp-card">
+            <h3>Apple-achtige finesse</h3>
+            <p>Modern font, zachte animaties en een cleane interface voor focus.</p>
+          </article>
+        </section>
+
+        <section class="catalog-preview">
+          <div class="catalog-preview__intro">
+            <p class="hero__eyebrow">Quizcatalogus</p>
+            <h2>Ontdek bot per bot</h2>
+            <p>
+              Start vanuit één van de vier hoofdcategorieën. Elke sectie opent als een strakke
+              kaart en sluit automatisch zodra je een andere categorie kiest.
+            </p>
+          </div>
+          <div class="catalog-preview__grid">
+            <article class="catalog-card">
+              <h3>Wervels & Thorax</h3>
+              <p>Van atlas tot ribben: oefen alle details van de bovenste body.</p>
+              <button class="btn ghost" type="button" data-open-catalog>Bekijk quizzen</button>
+            </article>
+            <article class="catalog-card">
+              <h3>Schoudergordel & Arm</h3>
+              <p>Verfijn je kennis van scapula, humerus en elke gewrichtsvraag.</p>
+              <button class="btn ghost" type="button" data-open-catalog>Start module</button>
+            </article>
+            <article class="catalog-card">
+              <h3>Heup & Been</h3>
+              <p>Leer femur, bekken en knie herkennen aan de hand van duidelijke vragen.</p>
+              <button class="btn ghost" type="button" data-open-catalog>Kies een bot</button>
+            </article>
+            <article class="catalog-card">
+              <h3>Voet</h3>
+              <p>Oefen voetwortel, middenvoet en tenen en krijg directe feedback.</p>
+              <button class="btn ghost" type="button" data-open-catalog>Ontdek quiz</button>
+            </article>
+          </div>
+        </section>
+      </main>
     </div>
 
     <div class="screen screen--catalog" data-screen="catalog" id="catalogScreen">

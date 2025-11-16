@@ -60,7 +60,8 @@ button {
 
 /* --- Globale scherm wrapper voor start- en catalogus views --- */
 .screen {
-  width: min(1400px, 100%);
+  width: min(1200px, 100%);
+  max-width: 1200px;
   margin: 0 auto;
   padding: clamp(1.5rem, 4vw, 4rem);
   opacity: 0;
@@ -73,6 +74,12 @@ button {
   display: flex;
   flex-direction: column;
   gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.start-shell {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .screen--catalog {
@@ -96,126 +103,148 @@ button {
 }
 
 /* --- Nieuwe navigatiebalk voor het landing scherm --- */
-.site-nav {
+.site-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
-  background: rgba(5, 10, 22, 0.65);
+  padding: 1.25rem 1.5rem;
+  background: rgba(5, 10, 22, 0.7);
   border: 1px solid var(--brand-border);
   border-radius: var(--radius-lg);
   backdrop-filter: blur(12px);
   box-shadow: var(--shadow-soft);
 }
 
-.site-nav__brand {
+.site-header__brand {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.site-nav__brand img {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
+.site-header__brand img {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
   border: 1px solid var(--brand-border);
 }
 
-.site-nav__brand strong {
+.site-header__brand strong {
   font-size: 1.15rem;
 }
 
-.site-nav__actions {
+.site-header__actions {
   display: flex;
   gap: 0.75rem;
 }
 
-/* --- Hero + CTA zone maakt beter gebruik van de breedte --- */
-.hero {
+/* --- Masthead met hero-inhoud die op de referentie lijkt --- */
+.masthead {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: clamp(1.5rem, 4vw, 3rem);
   padding: clamp(2rem, 5vw, 4rem);
   border-radius: var(--radius-lg);
-  background: linear-gradient(125deg, rgba(8, 14, 25, 0.95), rgba(18, 33, 57, 0.92));
+  background: linear-gradient(120deg, rgba(8, 14, 25, 0.95), rgba(12, 25, 43, 0.9));
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow-soft);
   position: relative;
   overflow: hidden;
 }
 
-.hero__content {
-  position: relative;
-  z-index: 1;
-}
-
-.hero__content h1 {
-  font-size: clamp(2.6rem, 5vw, 4.2rem);
+.masthead__content h1 {
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
   line-height: 1.1;
 }
 
-.hero__content p {
+.masthead__content p {
   margin-top: 1rem;
   color: var(--brand-muted);
-  max-width: 50ch;
+  max-width: 55ch;
 }
 
-.hero__cta-row {
+.masthead__cta-row {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 2rem;
 }
 
-.hero__animation {
-  min-height: 320px;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(160deg, rgba(28, 63, 98, 0.35), rgba(227, 52, 58, 0.22));
+.masthead__highlights {
+  list-style: none;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.masthead__highlights li {
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--brand-border);
-  position: relative;
-  overflow: hidden;
 }
 
-.spine {
-  position: absolute;
-  inset: 50% auto auto 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  align-items: center;
-}
-
-.spine span {
+.masthead__highlights strong {
   display: block;
-  width: 4rem;
-  height: 1rem;
-  border-radius: 999px;
-  border: 2px solid rgba(255, 255, 255, 0.75);
-  border-left-color: transparent;
-  border-right-color: transparent;
-  animation: wiggle 3s ease-in-out infinite;
+  font-size: 0.95rem;
 }
 
-.spine span:nth-child(odd) {
-  width: 3.1rem;
+.masthead__highlights span {
+  display: block;
+  margin-top: 0.4rem;
+  color: var(--brand-muted);
+  font-size: 0.85rem;
 }
 
-.spine span:nth-child(3n) {
-  width: 4.5rem;
+.masthead__media {
+  position: relative;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--brand-border);
+  background: linear-gradient(160deg, rgba(28, 63, 98, 0.5), rgba(227, 52, 58, 0.3));
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.pulse {
-  position: absolute;
-  width: 220px;
-  height: 220px;
+.masthead__illustration {
+  width: min(320px, 70%);
+  aspect-ratio: 1/1;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.65), transparent 60%);
-  filter: blur(30px);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: pulse 4s infinite;
+  background: rgba(4, 9, 20, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.45);
+}
+
+.masthead__illustration img {
+  width: 70%;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6));
+}
+
+.masthead__badge {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  padding: 0.75rem 1.1rem;
+  border-radius: var(--radius-sm);
+  background: rgba(4, 9, 20, 0.85);
+  border: 1px solid var(--brand-border);
+  box-shadow: var(--shadow-panel);
+  text-align: right;
+}
+
+.masthead__badge p {
+  font-size: 0.8rem;
+  color: var(--brand-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.masthead__badge strong {
+  font-size: 1rem;
 }
 
 /* --- Compacte USP-kaarten onder de hero --- */
@@ -243,6 +272,42 @@ button {
   color: var(--brand-red-soft);
   font-size: 0.82rem;
   font-weight: 600;
+}
+
+.catalog-preview {
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(4, 9, 20, 0.75);
+  box-shadow: var(--shadow-soft);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.catalog-preview__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.catalog-card {
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.catalog-card p {
+  color: var(--brand-muted);
+}
+
+.catalog-card .btn {
+  align-self: flex-start;
+  margin-top: auto;
 }
 
 /* --- Knoppenstijlen gedeeld tussen landing en catalogus --- */
@@ -592,21 +657,6 @@ footer {
   }
 }
 
-@keyframes pulse {
-  0% {
-    opacity: 0.4;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: translate(-50%, -50%) scale(1.15);
-  }
-  100% {
-    opacity: 0.4;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
 .question-zone--animate {
   animation: questionFade 0.35s ease;
 }
@@ -640,7 +690,7 @@ footer {
     min-height: auto;
   }
 
-  .site-nav,
+  .site-header,
   .catalog-header {
     flex-direction: column;
     align-items: flex-start;
@@ -648,7 +698,7 @@ footer {
 }
 
 @media (max-width: 600px) {
-  .hero {
+  .masthead {
     padding: 1.5rem;
   }
 
@@ -657,7 +707,7 @@ footer {
     padding: 1.5rem;
   }
 
-  .site-nav {
+  .site-header {
     padding: 1rem;
   }
 
